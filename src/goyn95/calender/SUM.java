@@ -10,6 +10,8 @@ public class SUM {
 		String splitValue[] = inputValue.split(",");
 		int i = Integer.parseInt(splitValue[0]);
 		int j = Integer.parseInt(splitValue[1]);
-		System.out.printf("두 수의 합은 %d입니다.",i+j);
+		System.out.printf("두 수의 합은 %d입니다.", i + j);
+		
+		scan.close();
 	}
 }
