@@ -8,9 +8,10 @@ public class Calender {
 
 	public int getmaxDaysOfMonth(int month) {
 		return MAX_DAYS[month - 1];
+
 	}
-	
-	public void printSampleCalender(){
+
+	public void printSampleCalender() {
 		System.out.println(" 일 월  화  수 목 금  토");
 		System.out.println("--------------------");
 		System.out.println(" 1  2  3  4  5  6  7");
@@ -20,7 +21,6 @@ public class Calender {
 	}
 
 	public static void main(String[] args) {
-		
 
 		// 숫자로 입력받아 해당하는달의 최대일수를 출력하는 프로그램
 		Scanner scanner = new Scanner(System.in);
@@ -28,9 +28,8 @@ public class Calender {
 		System.out.println("달을 입력하세요.");
 		int month = scanner.nextInt();
 
-		
 		System.out.printf("%d월은 %d일까지 있습니다.\n", month, cal.getmaxDaysOfMonth(month));
-		
+
 		cal.printSampleCalender();
 		scanner.close();
 	}
