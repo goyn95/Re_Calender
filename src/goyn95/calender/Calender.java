@@ -7,7 +7,7 @@ public class Calender {
 	private final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	public boolean isLeapYear(int year) {
-		if (year % 4 == 0 && (year % 100 != 0 || year % 400 != 0)) {
+		if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
 			return true;
 		} else {
 			return false;
@@ -15,7 +15,7 @@ public class Calender {
 
 	}
 
-	public int getmaxDaysOfMonth(int month, int year) {
+	public int getmaxDaysOfMonth(int year, int month) {
 		if (isLeapYear(year)) {
 			return LEAP_MAX_DAYS[month - 1];
 		} else {
@@ -34,7 +34,7 @@ public class Calender {
 			System.out.print("   ");
 		}
 
-		int maxDay = getmaxDaysOfMonth(month, year);
+		int maxDay = getmaxDaysOfMonth(year, month);
 		int count = 7 - weekday;
 		int delim = (count < 7) ? count : 0;
 
