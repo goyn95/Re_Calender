@@ -2,9 +2,9 @@ package goyn95.calender;
 
 public class Calender {
 
-	private final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	private final int[] MAX_DAYS = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	private final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	private final int[] LEAP_MAX_DAYS = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	public boolean isLeapYear(int year) {
 		if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
@@ -17,17 +17,20 @@ public class Calender {
 
 	public int getmaxDaysOfMonth(int year, int month) {
 		if (isLeapYear(year)) {
-			return LEAP_MAX_DAYS[month - 1];
+			return LEAP_MAX_DAYS[month];
 		} else {
-			return MAX_DAYS[month - 1];
+			return MAX_DAYS[month];
 		}
 
 	}
 
-	public void printCalender(int year, int month, int weekday) {
-		System.out.printf("    <<%4d년%3d월>>\n", year, month);
+	public void printCalender(int year, int month) {
+		System.out.printf("    <<%d년%d월>>\n", year, month);
 		System.out.println(" SU MO TU WE TH FR SA");
 		System.out.println("---------------------");
+
+		// get weekday automatically
+		int weekday = getWeekday(year, month, 1);
 
 		// print blank space
 		for (int i = 0; i < weekday; i++) {
@@ -62,4 +65,35 @@ public class Calender {
 
 	}
 
+	private int getWeekday(int year, int month, int day) {
+		int syear = 1970;
+		final int STANDARD_WEEKDAY = 3; // 1970/JAN/1st = Thursday
+
+		int count = 0;
+
+		for (int i = syear; i < year; i++) {
+			int delta = isLeapYear(i) ? 366 : 365;
+			count += delta;
+		}
+		// System.out.println(count);
+		for (int i = 0; i < month; i++) {
+			int delta = getmaxDaysOfMonth(year, i);
+			count += delta;
+		}
+		count += day;
+		// System.out.println(count);
+
+		int weekday = (count + STANDARD_WEEKDAY) % 7;
+		return weekday;
+	}
+
+	public static void main(String[] args) {
+		Calender cal = new Calender();
+		System.out.println(cal.getWeekday(1970, 1, 1) == 3);
+		System.out.println(cal.getWeekday(1971, 1, 1) == 4);
+		System.out.println(cal.getWeekday(1972, 1, 1) == 5);
+		System.out.println(cal.getWeekday(1973, 1, 1) == 0);
+		System.out.println(cal.getWeekday(1974, 1, 1) == 1);
+
+	}
 }
